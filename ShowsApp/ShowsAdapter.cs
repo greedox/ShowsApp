@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
+﻿using Android.Content;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using ShowsApp;
+using System.Collections.Generic;
 
 namespace TestRecycleView
 {
@@ -30,6 +24,7 @@ namespace TestRecycleView
         {
             public TextView Name { get; private set; }
             public TextView Genre { get; private set; }
+            public RatingBar RatingBar { get; private set; }
 
             public ShowsModel ShowsModel { get; set; }
 
@@ -38,6 +33,8 @@ namespace TestRecycleView
                 // Locate and cache view references:
                 Name = itemView.FindViewById<TextView>(Resource.Id.item_name);
                 Genre = itemView.FindViewById<TextView>(Resource.Id.item_genre);
+                RatingBar = itemView.FindViewById<RatingBar>(Resource.Id.ratingBar_indicator);
+
 
                 itemView.Click += (sender, args) =>
                 {
@@ -55,6 +52,7 @@ namespace TestRecycleView
             vh.Name.Text = shows[position].Name;
             vh.Genre.Text = shows[position].Genre;
             vh.ShowsModel = shows[position];
+            vh.RatingBar.Rating = shows[position].Rating;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)

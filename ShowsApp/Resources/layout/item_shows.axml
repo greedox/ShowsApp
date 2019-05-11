@@ -29,21 +29,18 @@
 				android:id="@+id/item_name"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Shows Name"
 				android:textSize="18dp"
 				android:textStyle="bold" />
 			<TextView
 				android:id="@+id/item_genre"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="16+ | 22 min | Comedy, Romance"
 				android:textSize="14dp"
 				android:textStyle="bold" />
 
 			<RatingBar
 				android:id="@+id/ratingBar_indicator"
 				style="?android:attr/ratingBarStyleIndicator"
-				android:rating="2.5"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content" />
 
