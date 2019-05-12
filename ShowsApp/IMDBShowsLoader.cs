@@ -20,10 +20,10 @@ namespace ShowsApp
             foreach (var item in list)
             {
                 var name = item.QuerySelector("h3.lister-item-header>a").TextContent;
-                float rating = float.Parse(item.QuerySelector("div.inline-block.ratings-imdb-rating>strong").TextContent, CultureInfo.InvariantCulture);
-                var genre = item.QuerySelector("span.genre").TextContent;
+                float rating = float.Parse(item.QuerySelector("div.inline-block.ratings-imdb-rating>strong").TextContent, CultureInfo.InvariantCulture)/2;
+                var genre = item.QuerySelector("span.genre").TextContent.Replace("\n","");
                 var id = item.QuerySelector("a>img").GetAttribute("data-tconst");
-                var title = item.QuerySelector("p.text-muted").TextContent.Replace("\n","");
+                var title = item.QuerySelectorAll("p.text-muted")[1].TextContent.Replace("\n","");
                 var poster = item.QuerySelector("div.lister-item-image.float-left>a>img").GetAttribute("src");
 
                 shows.Add(new ShowsModel
