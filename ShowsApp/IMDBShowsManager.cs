@@ -30,6 +30,7 @@ namespace ShowsApp
         {
             Task.Run(() =>
             {
+                if (IsRun) return;
                 IsRun = true;
                 var ids = ImdbIDs.GetRange(0, count);
                 ImdbIDs.RemoveRange(0, count);
@@ -38,9 +39,9 @@ namespace ShowsApp
                 {
                     var show = GetShow(id);
                     Shows.Add(show);
-                    ShowsAdd?.Invoke();
                 }
                 IsRun = false;
+                ShowsAdd?.Invoke();
             });
         }
 

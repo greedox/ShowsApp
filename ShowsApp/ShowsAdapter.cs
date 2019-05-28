@@ -3,6 +3,7 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using System.Collections.Generic;
+using TestRecycleView;
 
 namespace ShowsApp
 {
@@ -19,7 +20,7 @@ namespace ShowsApp
 
         public override int ItemCount => shows.Count;
 
-        public void RefreshRecyclerView() => NotifyItemInserted(ItemCount - 1);
+        public void RefreshRecyclerView() => NotifyDataSetChanged();
 
         class ShowsViewHolder : RecyclerView.ViewHolder
         {
