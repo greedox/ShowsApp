@@ -2,10 +2,9 @@
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
-using ShowsApp;
 using System.Collections.Generic;
 
-namespace TestRecycleView
+namespace ShowsApp
 {
     class ShowsAdapter : RecyclerView.Adapter
     {
@@ -19,6 +18,8 @@ namespace TestRecycleView
         }
 
         public override int ItemCount => shows.Count;
+
+        public void RefreshRecyclerView() => NotifyItemInserted(ItemCount - 1);
 
         class ShowsViewHolder : RecyclerView.ViewHolder
         {
@@ -53,7 +54,13 @@ namespace TestRecycleView
             vh.Genre.Text = shows[position].Genre;
             vh.ShowsModel = shows[position];
             vh.RatingBar.Rating = shows[position].Rating;
+
+            if (position == shows.Count - 1)
+            {
+                IMDBShowsManager.LoadShows(1);
+            }
         }
+
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {

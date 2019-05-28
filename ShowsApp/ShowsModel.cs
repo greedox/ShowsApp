@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AngleSharp.Html.Parser;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ShowsApp
@@ -13,6 +14,7 @@ namespace ShowsApp
         public float Rating { get; set; }
         public string Title { get; set; }
         public string ImdbID { get; set; }
+        public string Storyline { get; set; }
 
         /// <summary>
         /// Converts to Json

@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">ShowsApp</string>
     <string name="action_settings">Settings</string>
+    <string name="string_title"><u>Title:</u></string>
+    <string name="string_storyline"><u>Storyline:</u></string>
+    <string name="string_sign_in"><u>Dont have an account? Sign up.</u></string>
+    <string name="string_sign_up"><u>Already have an account? Sign in.</u></string>
 </resources>
