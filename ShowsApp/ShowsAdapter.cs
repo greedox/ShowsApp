@@ -3,7 +3,6 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using System.Collections.Generic;
-using TestRecycleView;
 
 namespace ShowsApp
 {
@@ -58,7 +57,7 @@ namespace ShowsApp
 
             if (position == shows.Count - 1)
             {
-                IMDBShowsManager.LoadShows(1);
+                IMDBShowsManager.LoadShows(5);
             }
         }
 

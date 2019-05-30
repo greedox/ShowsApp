@@ -1,5 +1,4 @@
-﻿using AngleSharp.Html.Parser;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ShowsApp

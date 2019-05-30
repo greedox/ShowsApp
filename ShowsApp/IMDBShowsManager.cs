@@ -12,6 +12,9 @@ namespace ShowsApp
         public delegate void ShowsAddContainer();
         static public event ShowsAddContainer ShowsAdd;
 
+        public delegate void ShowsClearContainer();
+        static public event ShowsAddContainer ShowsClear;
+
 
         //static IMDBShowsManager()
         //{
@@ -21,8 +24,11 @@ namespace ShowsApp
 
         static public void Init()
         {
+            ImdbIDs.Clear();
+            Shows.Clear();
+            ShowsClear?.Invoke();
             ImdbIDs = GetShowsImdbID();
-            LoadShows(5);
+            LoadShows(10);
         }
 
         static public bool IsRun = false;

@@ -2,9 +2,8 @@
 using Android.Content;
 using Android.OS;
 using Android.Widget;
-using ShowsApp;
 
-namespace TestRecycleView
+namespace ShowsApp
 {
     [Activity(Name = "TestRecycleView.TestRecycleView.ShowsInfoActivity")]
     class ShowsInfoActivity : Activity
@@ -19,7 +18,7 @@ namespace TestRecycleView
             var RatingBar = FindViewById<RatingBar>(Resource.Id.ratingBar_indicator);
             var Title = FindViewById<TextView>(Resource.Id.textView_title);
             var Storyline = FindViewById<TextView>(Resource.Id.textView_storyline);
-
+            
             var model = ShowsModel.FromString(Intent.GetStringExtra("model"));
 
             Name.Text = model.Name;
