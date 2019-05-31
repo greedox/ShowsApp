@@ -1,7 +1,9 @@
 ﻿using Android.Content;
+using Android.Graphics;
 using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using Java.Net;
 using System.Collections.Generic;
 
 namespace ShowsApp
@@ -26,6 +28,7 @@ namespace ShowsApp
             public TextView Name { get; private set; }
             public TextView Genre { get; private set; }
             public RatingBar RatingBar { get; private set; }
+            public ImageView Image { get; private set; }
 
             public ShowsModel ShowsModel { get; set; }
 
@@ -33,6 +36,7 @@ namespace ShowsApp
             {
                 // Locate and cache view references:
                 Name = itemView.FindViewById<TextView>(Resource.Id.item_name);
+                Image = itemView.FindViewById<ImageView>(Resource.Id.item_img);
                 Genre = itemView.FindViewById<TextView>(Resource.Id.item_genre);
                 RatingBar = itemView.FindViewById<RatingBar>(Resource.Id.ratingBar_indicator);
 
@@ -50,6 +54,7 @@ namespace ShowsApp
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             ShowsViewHolder vh = holder as ShowsViewHolder;
+            vh.Image.SetImageBitmap(GetBitmap(shows[position].PosterLink));
             vh.Name.Text = shows[position].Name;
             vh.Genre.Text = shows[position].Genre;
             vh.ShowsModel = shows[position];
@@ -57,10 +62,29 @@ namespace ShowsApp
 
             if (position == shows.Count - 1)
             {
-                IMDBShowsManager.LoadShows(5);
+                IMDBShowsManager.LoadShows(IMDBShowsManager.ShowsLoadCount.Middle);
             }
         }
 
+        private Bitmap GetBitmap(string URL)
+        {
+            try
+            {
+                var request = System.Net.WebRequest.Create(URL);
+                var response = request.GetResponse();
+                Bitmap loadedBitmap = null;
+                using (var responseStream = response.GetResponseStream())
+                {
+                    loadedBitmap = BitmapFactory.DecodeStream(responseStream);
+                    return loadedBitmap;
+                }
+            }
+            catch (System.Net.WebException ex)
+            {
+                return BitmapFactory.DecodeResource(context.Resources, Resource.Drawable.tbbt);
+            }
+            
+        }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {

@@ -5,13 +5,13 @@ using Android.Widget;
 
 namespace ShowsApp
 {
-    [Activity(Name = "TestRecycleView.TestRecycleView.ShowsInfoActivity")]
+    [Activity(Label = "ShowsInfoActivity")]
     class ShowsInfoActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.activity_shows);
+            SetContentView(Resource.Layout.activity_shows_info);
 
             var Name = FindViewById<TextView>(Resource.Id.item_name);
             var Genre = FindViewById<TextView>(Resource.Id.item_genre);

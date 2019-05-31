@@ -12,21 +12,21 @@ using Android.Widget;
 
 namespace ShowsApp
 {
-    [Activity(Label = "@string/app_name")]
+    [Activity(Label = "SignInUpActivity")]
     class SignInUpActivity: Activity
     {
+        //Switcher
+        private bool isSignIn = true;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_sign_in_up);
-
             // Locate and cache view references:
             var Email = FindViewById<EditText>(Resource.Id.editText_email);
             var Password = FindViewById<EditText>(Resource.Id.editText_password);
             var ButtonSignInUp = FindViewById<Button>(Resource.Id.button_sign_in_up);
-            var TextViewSignInUp = FindViewById<Button>(Resource.Id.textView_sign_in_up);
-            
-            bool isSignIn = true;
+            var TextViewSignInUp = FindViewById<TextView>(Resource.Id.textView_sign_in_up);
             ReplaceText(isSignIn, ButtonSignInUp, TextViewSignInUp);
 
             TextViewSignInUp.Click += (sender, args) => 
@@ -44,7 +44,7 @@ namespace ShowsApp
             };
         }
 
-        private void ReplaceText(bool signIn,Button button, TextView textView)
+        private void ReplaceText(bool signIn, Button button, TextView textView)
         {
             if (signIn)
             {
@@ -60,12 +60,20 @@ namespace ShowsApp
 
         private void SignIn(string email, string password)
         {
-
+            if (email == "admin" && password == "admin")
+            {
+                Intent intent = new Intent(this, typeof(ShowsActivity));
+                StartActivity(intent);
+            }
+            else
+            {
+                Toast.MakeText(this, "Invalid username or password", ToastLength.Long);
+            }
         }
 
         private void SignUp(string email, string password)
         {
-
+            Toast.MakeText(this, "Server unavailable", ToastLength.Long);
         }
 
     }

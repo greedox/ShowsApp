@@ -15,12 +15,17 @@ namespace ShowsApp
         public delegate void ShowsClearContainer();
         static public event ShowsAddContainer ShowsClear;
 
+        public enum ShowsLoadCount
+        {
+            Small = 1,
+            Middle = 5,
+            Large = 10
+        }
 
-        //static IMDBShowsManager()
-        //{
-        //    ImdbIDs = GetShowsImdbID();
-        //    LoadShows(5);
-        //}
+        static IMDBShowsManager()
+        {
+            Init();
+        }
 
         static public void Init()
         {
@@ -28,16 +33,18 @@ namespace ShowsApp
             Shows.Clear();
             ShowsClear?.Invoke();
             ImdbIDs = GetShowsImdbID();
-            LoadShows(10);
+            LoadShows(ShowsLoadCount.Large);
         }
 
         static public bool IsRun = false;
-        static public void LoadShows(int count)
+        static public void LoadShows(ShowsLoadCount loadCount)
         {
             Task.Run(() =>
             {
                 if (IsRun) return;
                 IsRun = true;
+                int count = (int)loadCount;
+
                 var ids = ImdbIDs.GetRange(0, count);
                 ImdbIDs.RemoveRange(0, count);
 
