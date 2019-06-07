@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Android.Content.Res;
+using Android.Graphics;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,6 +10,7 @@ namespace ShowsApp
     {
         static public List<string> ImdbIDs { get; set; } = new List<string>();
         static public List<ShowsModel> Shows { get; set; } = new List<ShowsModel>();
+        static public List<Bitmap> ShowsBitmaps { get; set; } = new List<Bitmap>();
 
         public delegate void ShowsAddContainer();
         static public event ShowsAddContainer ShowsAdd;
@@ -31,6 +34,7 @@ namespace ShowsApp
         {
             ImdbIDs.Clear();
             Shows.Clear();
+            ShowsBitmaps.Clear();
             ShowsClear?.Invoke();
             ImdbIDs = GetShowsImdbID();
             LoadShows(ShowsLoadCount.Large);
@@ -52,6 +56,8 @@ namespace ShowsApp
                 {
                     var show = GetShow(id);
                     Shows.Add(show);
+                    var bitmap = GetBitmap(show.PosterLink);
+                    ShowsBitmaps.Add(bitmap);
                 }
                 IsRun = false;
                 ShowsAdd?.Invoke();
@@ -74,6 +80,18 @@ namespace ShowsApp
             string json = webClient.DownloadString(site + imdbID);
 
             return JsonConvert.DeserializeObject<ShowsModel>(json);
+        }
+
+        static private Bitmap GetBitmap(string URL)
+        {
+            var request = System.Net.WebRequest.Create(URL);
+            var response = request.GetResponse();
+            Bitmap loadedBitmap = null;
+            using (var responseStream = response.GetResponseStream())
+            {
+                loadedBitmap = BitmapFactory.DecodeStream(responseStream);
+                return loadedBitmap;
+            }
         }
     }
 }

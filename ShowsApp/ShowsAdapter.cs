@@ -44,17 +44,17 @@ namespace ShowsApp
                 itemView.Click += (sender, args) =>
                 {
                     Intent intent = new Intent(itemView.Context, typeof(ShowsInfoActivity));
-                    intent.PutExtra("model", ShowsModel.ToString());
+                    intent.PutExtra("position", Position);
                     itemView.Context.StartActivity(intent);
                 };
-
             }
         }
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             ShowsViewHolder vh = holder as ShowsViewHolder;
-            vh.Image.SetImageBitmap(GetBitmap(shows[position].PosterLink));
+            //vh.Image.SetImageBitmap(GetBitmap(shows[position].PosterLink));
+            vh.Image.SetImageBitmap(IMDBShowsManager.ShowsBitmaps[position]);
             vh.Name.Text = shows[position].Name;
             vh.Genre.Text = shows[position].Genre;
             vh.ShowsModel = shows[position];
@@ -64,26 +64,6 @@ namespace ShowsApp
             {
                 IMDBShowsManager.LoadShows(IMDBShowsManager.ShowsLoadCount.Middle);
             }
-        }
-
-        private Bitmap GetBitmap(string URL)
-        {
-            try
-            {
-                var request = System.Net.WebRequest.Create(URL);
-                var response = request.GetResponse();
-                Bitmap loadedBitmap = null;
-                using (var responseStream = response.GetResponseStream())
-                {
-                    loadedBitmap = BitmapFactory.DecodeStream(responseStream);
-                    return loadedBitmap;
-                }
-            }
-            catch (System.Net.WebException ex)
-            {
-                return BitmapFactory.DecodeResource(context.Resources, Resource.Drawable.tbbt);
-            }
-            
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
